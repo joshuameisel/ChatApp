@@ -6,8 +6,12 @@ var sendMessage = function(chat) {
   chat.sendMessage(extractMessage());
 };
 
+var processCommand = function(chat) {
+  chat.processCommand(extractMessage());
+};
+
 var addToTop = function(data) {
-  $("ul").append($("<li>" + data.text + "</li>"));
+  $("#messages ul").append($("<li>" + data.text + "</li>"));
 };
 
 $(document).ready( function() {
@@ -15,10 +19,25 @@ $(document).ready( function() {
   var chat = new ChatApp.Chat(socket);
   $("form").on('submit', function(event) {
     event.preventDefault();
-    sendMessage(chat);
+    if (extractMessage().slice(0,1) === "/") {
+      processCommand(chat);
+    } else {
+      sendMessage(chat);
+    }
   });
   
   socket.on("receivedMessage", function (data) {
     addToTop(data);
   });
+  
+  socket.on("nicknameChangeResult", function (data) {
+    if (data.success) {
+      $("#user-names ul").html();
+      for (var key in data.nicknames) {
+        $("#user-names ul").append("<li>" + data.nicknames[key] + "</li>");
+      }
+    } else {
+      $("body").append("<h3>" + data.message + "</h3>")
+    }
+  })
 });

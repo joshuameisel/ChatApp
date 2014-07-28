@@ -25,14 +25,14 @@ $(document).ready( function() {
       sendMessage(chat);
     }
   });
-  
+
   socket.on("receivedMessage", function (data) {
     addToTop(data);
   });
-  
+
   socket.on("nicknameChangeResult", function (data) {
     if (data.success) {
-      $("#user-names ul").html();
+      $("#user-names ul").html("");
       for (var key in data.nicknames) {
         $("#user-names ul").append("<li>" + data.nicknames[key] + "</li>");
       }

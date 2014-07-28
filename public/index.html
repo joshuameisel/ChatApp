@@ -1,28 +1,29 @@
-<html> 
-<head> 
+<html>
+<head>
   <script src="/socket.io/socket.io.js"></script>
   <script src="public/javascripts/jquery-2.1.1.js"></script>
   <script src="public/javascripts/chat.js"></script>
   <script src="public/javascripts/chat_ui.js"></script>
-</head> 
+</head>
 <body>
+  <h1>Type '/nick yournicknamehere' to change username.</h1>
   <section id="messages">
     <h2>messages</h2>
     <ul></ul>
   </section>
-   
+
   <section class="newMessage">
   <form>
     <label for="new_message"></label>
     <input type="text" id="message">
     <input type="submit" value="send message">
-  </form> 
+  </form>
   </section>
-  
+
   <section id="user-names">
     <h2>online</h2>
     <ul></ul>
   </section>
-  
+
 </body>
 </html>
